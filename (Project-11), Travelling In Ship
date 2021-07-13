@@ -1,0 +1,123 @@
+// You can find all animations in  the animation tab 
+var score=0;
+
+var scene=createSprite(200,200,400,20);
+var bow=createSprite(372,209,20,20);
+bow.setAnimation("bow");
+var redB=createGroup();
+  
+  var blueB=createGroup();
+  var greenB=createGroup();
+  var yellowB=createGroup();
+  var arrowGroup=createGroup();
+
+scene.setAnimation("sunshine_showers_1");
+scene.scale=2;
+scene.velocityX=-2;
+scene.x=scene.width/2;
+
+function draw() {
+  bow.y=World.mouseY;
+  
+  background("white");
+  
+  
+  text("Score :",+score,270,30);
+  
+  if(scene.x<0){
+    scene.x=scene.width/2;
+  }
+  
+  var select_balloon=randomNumber(1,4);
+  
+  if(World.frameCount%80===0){
+    if(select_balloon===1){
+      createRedBalloon();
+    }else if(select_balloon===2){
+      createBlueBalloon();
+    }else if(select_balloon==3){
+      createGreenBalloon();
+    }else{
+     createYellowBalloon(); 
+    }
+  }
+  
+  if(keyDown("space")){
+    var temp_arrow=createArrow();
+    
+    
+    playSound("sound://category_achievements/melodic_win_1.mp3");
+     
+  }
+if(arrowGroup.isTouching(redB)){
+    redB.destroyEach();
+    arrowGroup.destroyEach();
+    score=+1;
+ } 
+ if(arrowGroup.isTouching(blueB)){
+    blueB.destroyEach();
+    arrowGroup.destroyEach();
+    score=+1;
+ } 
+ if(arrowGroup.isTouching(greenB)){
+    greenB.destroyEach();
+    arrowGroup.destroyEach();
+    score=+1;
+ } 
+ if(arrowGroup.isTouching(yellowB)){
+    yellowB.destroyEach();
+    arrowGroup.destroyEach();
+    score=+1;
+ } 
+  
+ 
+  drawSprites();
+}
+  
+function createArrow(){
+  var arrow=createSprite(360,100,5,10);
+  arrow.velocityX=-6;
+  arrow.setAnimation("arrow");
+  arrow.x=360;
+  arrow.y=bow.y;
+  arrow.velocityX=-4;
+  arrow.lifetime=100;
+  arrowGroup.add(arrow);
+}
+
+
+function createRedBalloon(){
+  var red=createSprite(0,randomNumber(20,370),10,10);
+  red.setAnimation("red");
+  red.velocityX= 3;
+  red.lifetime=150;
+  redB.add(red);
+}
+
+function createBlueBalloon(){
+  var blue=createSprite(0,randomNumber(20,370),10,10);
+  blue.setAnimation("blue");
+  blue.velocityX= 3;
+  blue.lifetime=150;
+  blueB.add(blue);
+}
+
+function createGreenBalloon(){
+  var green=createSprite(0,randomNumber(20,370),10,10);
+  green.setAnimation("green");
+  green.velocityX= 3;
+  green.lifetime=150;
+ 
+ 
+  greenB.add(green);
+}
+
+function createYellowBalloon(){
+  var yellow=createSprite(0,randomNumber(20,370),10,10);
+  yellow.setAnimation("yellow");
+  yellow.velocityX= 3;
+  yellow.lifetime=150;
+  yellowB.add(yellow);
+  
+  
+}
